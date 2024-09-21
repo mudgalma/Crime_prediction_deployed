@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crime Category Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 50px;
+        }
+    
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+        }
+    
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #2b2b2b;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+    
+        .form-container input:focus, .form-container select:focus {
+            border-color: #4caf50;
+            outline: none;
+        }
+    
+        .form-container input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+    
+        .form-container input[type="submit"]:hover {
+            background-color: #66bb6a;
+        }
+    
+        .result {
+            font-size: 1.8em;
+            color: #66bb6a;
+            text-align: center;
+            margin-top: 25px;
+        }
+    
+        .form-container input[type="submit"]:focus {
+            background-color: #388e3c;
+        }
+    
+        /* Add subtle animations */
+        .form-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+    
+</head>
+<body> 
+    <div class="form-container">
+        <h2>Crime Category Prediction</h2>
+        <form action="/predict" method="post">
+
+            <!-- Existing Fields -->
+            <label for="Victim_Age">Victim Age:</label>
+            <input type="number" name="Victim_Age" required>
+            
+            <label for="Reporting_District_no">Reporting District Number:</label>
+            <input type="number" name="Reporting_District_no" required>
+            
+            <label for="hour">Time of Occurrence (hour):</label>
+            <input type="number" name="hour" min="0" max="23" required>
+            
+            <label for="Date_Occurred_month">Month of Occurrence:</label>
+            <input type="number" name="Date_Occurred_month" min="1" max="12" required>
+            
+            <label for="Date_Occurred_dayofweek">Day of the Week of Occurrence:</label>
+            <input type="number" name="Date_Occurred_dayofweek" min="0" max="6" required>
+            
+            <label for="Date_Occurred_dayofmonth">Day of the Month of Occurrence:</label>
+            <input type="number" name="Date_Occurred_dayofmonth" min="1" max="31" required>
+
+            <!-- Optional Inputs -->
+            <label for="Victim_Sex">Victim Sex:</label>
+            <select name="Victim_Sex">
+                <option value="M" selected>M</option>
+                <option value="F">F</option>
+                <option value="X">X</option>
+                <option value="H">H</option>
+            </select>
+
+            <label for="Victim_Descent">Victim Descent:</label>
+            <select name="Victim_Descent">
+                <option value="H" selected>Hispanic</option>
+                <option value="B">Black</option>
+                <option value="W">White</option>
+                <option value="O">Other</option>
+                <option value="X">Unknown</option>
+            </select>
+
+            <label for="Status_Description">Status Description:</label>
+            <select name="Status_Description">
+                <option value="IC" selected>Invest Cont</option>
+                <option value="AO">Adult Other</option>
+                <option value="AA">Adult Arrest</option>
+                <option value="JO">Juv Other</option>
+                <option value="JA">Juv Arrest</option>
+            </select>
+
+            <label for="Area_Name">Area Name:</label>
+            <input type="text" name="Area_Name" required>
+            
+            <label for="Premise_Code">Premise Code:</label>
+            <input type="number" name="Premise_Code" required>
+
+            <!-- New Location Field -->
+            <label for="location">Location (Latitude, Longitude):</label>
+            <input type="text" name="location"  required>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
