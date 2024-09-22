@@ -11,7 +11,7 @@ model_path = 'model.pkl'
 with open(model_path, 'rb') as file:
     model = pickle.load(file)
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='./Templates')
 
 # Define the crime category mapping
 crime_mapping = {
